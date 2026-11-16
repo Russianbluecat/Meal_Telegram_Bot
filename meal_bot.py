@@ -33,7 +33,7 @@ KST = ZoneInfo("Asia/Seoul")
 GEMINI_MODEL = "gemini-2.0-flash"
 MAX_MEALS_FOR_ANALYSIS = 300
 TELEGRAM_MAX_MESSAGE_LENGTH = 4000
-WAIT_MINUTES = int(os.environ.get("WAIT_MINUTES", "60"))
+WAIT_MINUTES = int(os.environ.get("WAIT_MINUTES", "10"))
 ANALYSIS_DAYS = 14
 
 API = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"
