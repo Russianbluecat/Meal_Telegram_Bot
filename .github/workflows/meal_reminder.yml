@@ -1,0 +1,34 @@
+name: Meal Reminder
+
+on:
+  schedule:
+    # UTC 기준. 한국 시간 = UTC + 9시간 → 12:30 UTC = 21:30 KST
+    # (GitHub cron은 몇 분~수십 분 늦을 수 있어서 자정보다 넉넉히 앞에 둠)
+    - cron: "30 12 * * *"
+  workflow_dispatch:   # 수동 실행 버튼 (테스트용)
+
+concurrency:
+  group: meal-reminder
+  cancel-in-progress: false
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75   # 버튼 대기 60분 + 여유
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - run: python meal_bot.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
