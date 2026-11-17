@@ -2,9 +2,9 @@ name: Meal Reminder
 
 on:
   schedule:
-    # UTC 기준. 한국 시간 = UTC + 9시간 → 12:30 UTC = 21:30 KST
+    # UTC 기준. 한국 시간 = UTC + 9시간 → 12:23 UTC = 21:23 KST
     # (GitHub cron은 몇 분~수십 분 늦을 수 있어서 자정보다 넉넉히 앞에 둠)
-    - cron: "30 12 * * *"
+    - cron: "23 12 * * *"
   workflow_dispatch:   # 수동 실행 버튼 (테스트용)
 
 concurrency:
